@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_switch/flutter_switch.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:theme_provider/theme_provider.dart';
+// import 'package:flutter_switch/flutter_switch.dart';
+// import 'package:flutter/scheduler.dart';
+// import 'package:theme_provider/theme_provider.dart';
 
 import 'screens/home_screen.dart';
 
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             // Remove the debug banner
             debugShowCheckedModeBanner: false,
-            title: 'Kindacode.com',
+            title: 'todoit',
             theme: ThemeData.light(),
             darkTheme: ThemeData.dark(),
             themeMode: currentMode,
