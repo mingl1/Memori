@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "901060192995",
+    "project_id": "todo-26640",
+    "storage_bucket": "todo-26640.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901060192995:android:d0fb0151e52e868901b3d6",
+        "android_client_info": {
+          "package_name": "com.example.notez"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901060192995-fdlkhrlgtrhm5stq4p8s3ivq8a4sc3h5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-RM83KL1vAud6kLClSq4QZ-mAT7aScaM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901060192995-fdlkhrlgtrhm5stq4p8s3ivq8a4sc3h5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

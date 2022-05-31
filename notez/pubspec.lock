@@ -123,7 +123,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: bb026cc59feb6580e51198f8a77d9d2eae01b8a3
+      resolved-ref: c15fb400e281819475a4a20b59da9f3860870d22
       url: "https://github.com/mingl1/FlutterSwitch.git"
     source: git
     version: "0.3.1"

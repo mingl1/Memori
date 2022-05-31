@@ -32,7 +32,7 @@ class _myHomePageState extends State<HomeScreen>{
                       toggleSize: 53,
                       borderRadius: 100.0,
                       padding: 0.0,
-                      togglePadding: const EdgeInsets.all(0),
+                      togglePadding: const EdgeInsets.all(0.0),
                       activeToggleColor: const Color(0xFFb5b79d),
                       inactiveToggleColor: const Color(0xFFf5ec27),
                      activeSwitchBorder: Border.all(color: Colors.black, width: 5),
