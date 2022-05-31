@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-
+import 'package:notez/constants.dart' as Constants;
 import '../main.dart';
 
 // Home Screen
