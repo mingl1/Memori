@@ -25,11 +25,11 @@ class _myHomePageState extends State<HomeScreen>{
       body: Center(
         child: Column(
           children: [
-            constants.moon,
+            //constants.moon,
             FlutterSwitch(
                width: 100.0,
                       height: 60.0,
-                      toggleSize: 53,
+                      toggleSize: 50,
                       borderRadius: 100.0,
                       padding: 0.0,
                       togglePadding: const EdgeInsets.all(0.0),
@@ -38,10 +38,11 @@ class _myHomePageState extends State<HomeScreen>{
                      activeSwitchBorder: Border.all(color: Colors.black, width: 5),
                       activeColor: const Color(0xFF484848),
                       inactiveColor: const Color(0xFFbfe6f6),
+                      activeToggleBorder: Border.all(color:const Color(0xFFb5b79d), width:5),
                       inactiveToggleBorder:  Border.all(color: Color(0xFFe4c741), width: 5),
                       inactiveSwitchBorder: Border.all(color: Color(0xFF83c1d6), width: 5),
                       activeIcon: constants.moon,
-                     //inactiveIcon: Container(child:Image.asset('assets/button_icons/moon2.png', fit: BoxFit.fill,), height: 100,),
+                     //inactiveIcon: constants.sun,
                 value: status,
                 onToggle: (val) {
                   setState(() {
