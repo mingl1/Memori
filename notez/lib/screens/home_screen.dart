@@ -25,7 +25,7 @@ class _myHomePageState extends State<HomeScreen> {
             constants.moon,
             NeumorphicSwitch(
               curve: Neumorphic.DEFAULT_CURVE,
-              height: 60,
+              height: 40,
               value: status,
               onChanged: (val){
                   setState(() {

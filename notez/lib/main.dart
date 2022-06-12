@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           return NeumorphicApp(
             // Remove the debug banner
             debugShowCheckedModeBanner: false,
-            title: 'Check',
+            title: 'Memori',
             theme: const NeumorphicThemeData(baseColor: Colors.white,lightSource: LightSource.left, intensity: 0.7,),
             darkTheme: const NeumorphicThemeData(
                 baseColor:  Color(0xFF3E3E3E),
