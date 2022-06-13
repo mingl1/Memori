@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -14,6 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _myHomePageState extends State<HomeScreen> {
   bool status = MyApp.themeNotifier.value == ThemeMode.dark;
+  final user = FirebaseAuth.instance.currentUser!;
 
   bool isDarkMode() => MyApp.themeNotifier.value == ThemeMode.dark;
   @override
@@ -65,10 +67,13 @@ class _myHomePageState extends State<HomeScreen> {
             ElevatedButton(
               child: const Text('Go to Other Screen'),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const OtherScreen()));
+                showDialog(context: context, barrierDismissible: false, builder: (context) => Center(child: CircularProgressIndicator(),));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => const OtherScreen()));
+                FirebaseAuth.instance.signOut();
+                navigatorKey.currentState!.popUntil((route) => route.isFirst);
               },
             ),
           ],
