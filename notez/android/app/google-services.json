@@ -29,6 +29,13 @@
             {
               "client_id": "901060192995-fdlkhrlgtrhm5stq4p8s3ivq8a4sc3h5.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "901060192995-ljhski2uq6jojla8npcfp30spkh4n45t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.notez"
+              }
             }
           ]
         }

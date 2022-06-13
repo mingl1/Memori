@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:notez/components/auth.dart';
+import 'package:notez/screens/setupPage.dart';
 import 'package:notez/screens/signUpPage.dart';
 import 'firebase_options.dart';
 
@@ -16,8 +17,8 @@ import 'screens/home_screen.dart';
 final navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp( MaterialApp(home:landingPage(), title: 'Memori',navigatorKey: navigatorKey,));
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
+  runApp( MaterialApp(home:landingPage(), title: 'Memori',navigatorKey: navigatorKey,debugShowCheckedModeBanner: false,) );
 }
 
 class landingPage extends StatelessWidget {
@@ -32,7 +33,8 @@ class landingPage extends StatelessWidget {
             return MyApp();
           }
           else{
-            return AuthPage();
+            //return AuthPage();
+            return setupPage();
           }
           },
       ),
