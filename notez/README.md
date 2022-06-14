@@ -1,16 +1,10 @@
-# notez
+# Memori
 
-A new Flutter project.
+Memento Mori: Productivity Boost
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+Sources:
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Sign-up/in page UI template - https://letmeflutter.com/signup-flutter-form-ui-design-2022-beautiful-flutter-ui-template/
+Concept introduced by Tim Urban’s - https://waitbutwhy.com/2014/05/life-weeks.html
+App idea inspired by - https://github.com/tienphaw/LifeProgress
