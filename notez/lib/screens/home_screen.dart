@@ -31,37 +31,60 @@ class _myHomePageState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     readUser();
-   double difference;
-     int totalWeeks;
-     double lived;
-    //DateTime.parse(userr.bd).add(Duration(days: userr.life*365)); 
+    double difference;
+    int totalWeeks;
+    double lived;
+    //DateTime.parse(userr.bd).add(Duration(days: userr.life*365));
 
     return Scaffold(
       body: Center(
         child: Column(
           children: [
             Row(
-              children: [profileName(), dayNight(), SizedBox(width: 110,),
-              out()],
-              
+              children: [
+                profileName(),
+                dayNight(),
+                SizedBox(
+                  width: 110,
+                ),
+                out()
+              ],
             ),
             FutureBuilder(
-              future: readUser(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData){
-                  totalWeeks= 52 * userr.life;
-                  difference = (DateTime.now().difference(DateTime.parse(userr.bd)).inDays)/7;
-                  lived = (((totalWeeks-difference)/totalWeeks)*100);
+                future: readUser(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    totalWeeks = 52 * userr.life;
+                    difference = (DateTime.now()
+                            .difference(DateTime.parse(userr.bd))
+                            .inDays) /
+                        7;
+                    lived = (((totalWeeks - difference) / totalWeeks) * 100);
 
-                return Column(children: [Row(children: [SizedBox(width: 10),Text(
-                  'Life Progress: ${(100-lived).toStringAsFixed(1)}%',style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.bold,),
-                )])]);}
-                else{
-                  return CircularProgressIndicator();
-                }
-              }
-            )
-           
+                    return Column(children: [
+                      Row(children: [
+                        SizedBox(width: 10),
+                        Text(
+                          'Life Progress: ${(100 - lived).toStringAsFixed(1)}%',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4!
+                              .copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                        )
+                      ]),
+                      Row(
+                        children: [SizedBox(width: 10),
+                          RichText(text: TextSpan(text: '${difference.toInt()}', style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold), children: [TextSpan(text: ' weeks spent | ${(totalWeeks-difference).toInt()} weeks left')]),),
+                        ],
+                      )
+                    ]);
+                  } else {
+                    return CircularProgressIndicator();
+                  }
+                })
+
             //profile(),
           ],
         ),
@@ -118,92 +141,96 @@ class _myHomePageState extends State<HomeScreen> {
                 : Colors.black),
         recognizer: TapGestureRecognizer()
           ..onTap = () {
-            Navigator.push(context, CustomPageRouteBuilder(widget: profile(uzer: uzer,)));
+            Navigator.push(
+                context,
+                CustomPageRouteBuilder(
+                    widget: profile(
+                  uzer: uzer,
+                )));
           },
       )),
     );
   }
 
-  IconButton out(){
-    return IconButton(icon: Icon(Icons.exit_to_app),iconSize: 45,color: Colors.white, onPressed: () {
-                showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (context) => Center(
-                          child: CircularProgressIndicator(),
-                        ));
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => const OtherScreen()));
-                FirebaseAuth.instance.signOut();
-                dispose();
-                navigatorKey.currentState!.popUntil((route) => route.isFirst);
-              },);
+  IconButton out() {
+    return IconButton(
+      icon: Icon(Icons.exit_to_app),
+      iconSize: 45,
+      color: Colors.white,
+      onPressed: () {
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => Center(
+                  child: CircularProgressIndicator(),
+                ));
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => const OtherScreen()));
+        FirebaseAuth.instance.signOut();
+        dispose();
+        navigatorKey.currentState!.popUntil((route) => route.isFirst);
+      },
+    );
   }
 
   ElevatedButton signOut() {
-    return  ElevatedButton(
-              child: const Text('Sign Out'),
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (context) => Center(
-                          child: CircularProgressIndicator(),
-                        ));
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => const OtherScreen()));
-                FirebaseAuth.instance.signOut();
-                dispose();
-                navigatorKey.currentState!.popUntil((route) => route.isFirst);
-              },
-            );
-  }
-  NeumorphicSwitch dayNight () {
-    return   NeumorphicSwitch(
-              curve: Neumorphic.DEFAULT_CURVE,
-              height: 40,
-              value: status,
-              onChanged: (val) {
-                setState(() {
-                  status = val;
-                  if (val) {
-                    MyApp.themeNotifier.value = ThemeMode.dark;
-                  } else {
-                    MyApp.themeNotifier.value = ThemeMode.light;
-                  }
-                });
-              },
-              style: NeumorphicSwitchStyle(
-                // thumbShape: NeumorphicShape.concave,
-                thumbDepth: 10,
-                trackDepth: 10,
-
-                lightSource: !status
-                    ? const LightSource(0.9, 0)
-                    : const LightSource(-1, -0),
-                trackBorder: NeumorphicBorder(
-                  color: !status ? const Color(0xFF76aec1) : Colors.black87,
-                  width: 5,
-                ),
-                inactiveThumbColor: const Color(0xFFf5ec27),
-                inactiveTrackColor: const Color(0xFF83c1d6),
-                activeThumbColor: const Color(0xFF9e9e96),
-                activeTrackColor: const Color(0xFF484848),
-
-                thumbBorder: NeumorphicBorder(
-                    color: !status
-                        ? const Color(0xFFe4c741)
-                        : const Color(0xFF65645f),
-                    width: 4.5),
-              ),
-            );
+    return ElevatedButton(
+      child: const Text('Sign Out'),
+      onPressed: () {
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (context) => Center(
+                  child: CircularProgressIndicator(),
+                ));
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => const OtherScreen()));
+        FirebaseAuth.instance.signOut();
+        dispose();
+        navigatorKey.currentState!.popUntil((route) => route.isFirst);
+      },
+    );
   }
 
+  NeumorphicSwitch dayNight() {
+    return NeumorphicSwitch(
+      curve: Neumorphic.DEFAULT_CURVE,
+      height: 40,
+      value: status,
+      onChanged: (val) {
+        setState(() {
+          status = val;
+          if (val) {
+            MyApp.themeNotifier.value = ThemeMode.dark;
+          } else {
+            MyApp.themeNotifier.value = ThemeMode.light;
+          }
+        });
+      },
+      style: NeumorphicSwitchStyle(
+        // thumbShape: NeumorphicShape.concave,
+        thumbDepth: 10,
+        trackDepth: 10,
 
+        lightSource:
+            !status ? const LightSource(0.9, 0) : const LightSource(-1, -0),
+        trackBorder: NeumorphicBorder(
+          color: !status ? const Color(0xFF76aec1) : Colors.black87,
+          width: 5,
+        ),
+        inactiveThumbColor: const Color(0xFFf5ec27),
+        inactiveTrackColor: const Color(0xFF83c1d6),
+        activeThumbColor: const Color(0xFF9e9e96),
+        activeTrackColor: const Color(0xFF484848),
 
+        thumbBorder: NeumorphicBorder(
+            color: !status ? const Color(0xFFe4c741) : const Color(0xFF65645f),
+            width: 4.5),
+      ),
+    );
+  }
 }
-
