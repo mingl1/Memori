@@ -48,6 +48,7 @@ class _myHomePageState extends State<HomeScreen> {
                 //     MaterialPageRoute(
                 //         builder: (context) => const OtherScreen()));
                 FirebaseAuth.instance.signOut();
+                dispose();
                 navigatorKey.currentState!.popUntil((route) => route.isFirst);
               },
             ),
