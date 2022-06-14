@@ -266,7 +266,7 @@ class _setupPageState extends State<setupPage> {
     } on FirebaseAuthException catch (e) {
       print(e);
     }
-    Navigator.push(context, CustomPageRouteBuilder(widget: HomeScreen()));
+    Navigator.push(context, CustomPageRouteBuilder(widget: MyApp()));
 
   }
 }

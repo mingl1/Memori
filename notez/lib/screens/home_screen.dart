@@ -25,7 +25,7 @@ class _myHomePageState extends State<HomeScreen> {
   final user = FirebaseAuth.instance.currentUser!;
   late AuthUser userr;
 
-  final weeks = List.generate(7800, (index) => index);
+
   late double difference;
   late int totalWeeks;
   late double lived;
@@ -35,6 +35,7 @@ class _myHomePageState extends State<HomeScreen> {
   bool isDarkMode() => MyApp.themeNotifier.value == ThemeMode.dark;
   @override
   Widget build(BuildContext context) {
+    
     readUser();
     //double difference;
     // int totalWeeks;
@@ -51,7 +52,7 @@ class _myHomePageState extends State<HomeScreen> {
                 profileName(),
                 dayNight(),
                 SizedBox(
-                  width: 110,
+                  width: 55,
                 ),
                 out()
               ],
@@ -60,7 +61,9 @@ class _myHomePageState extends State<HomeScreen> {
                 future: readUser(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
+                    
                     totalWeeks = 52 * userr.life;
+                      final weeks = List.generate(7800, (index) => index);
                     difference = (DateTime.now()
                             .difference(DateTime.parse(userr.bd))
                             .inDays) /
@@ -133,7 +136,10 @@ class _myHomePageState extends State<HomeScreen> {
   }
 
   Widget buildWeeks(int number) {
-    if (number > difference) {
+    if (number>totalWeeks){
+      return Container();
+    }
+    else if (number > difference) {
       return Container(color: Color.fromARGB(179, 214, 211, 211));
     } else if (number < 286) {
       return Container(
@@ -227,7 +233,7 @@ class _myHomePageState extends State<HomeScreen> {
   IconButton out() {
     return IconButton(
       icon: Icon(Icons.exit_to_app),
-      iconSize: 45,
+      iconSize: 35,
       color: Colors.white,
       onPressed: () {
         showDialog(
