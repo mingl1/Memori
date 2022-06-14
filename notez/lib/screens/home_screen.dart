@@ -26,6 +26,9 @@ class _myHomePageState extends State<HomeScreen> {
   late AuthUser userr;
 
   final weeks = List.generate(7800, (index) => index);
+  late double difference;
+  late int totalWeeks;
+  late double lived;
 
   //static late final uzer;
 
@@ -33,9 +36,9 @@ class _myHomePageState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     readUser();
-    double difference;
-    int totalWeeks;
-    double lived;
+    //double difference;
+    // int totalWeeks;
+    // double lived;
     double aspectRatio;
     //DateTime.parse(userr.bd).add(Duration(days: userr.life*365));
 
@@ -85,7 +88,9 @@ class _myHomePageState extends State<HomeScreen> {
                                 style: Theme.of(context)
                                     .textTheme
                                     .headline5!
-                                    .copyWith(fontWeight: FontWeight.bold),
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17),
                                 children: [
                                   TextSpan(
                                       text:
@@ -94,20 +99,24 @@ class _myHomePageState extends State<HomeScreen> {
                           ),
                         ]),
                         Expanded(
-                          child: GridView.builder(
-                            shrinkWrap: true,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      childAspectRatio: aspectRatio,
-                                      mainAxisSpacing: 5,
-                                      crossAxisSpacing: 1,
-                                      crossAxisCount: 52,),
-                              itemCount: totalWeeks,
-                              itemBuilder: (context, index) {
-                                final item = weeks[index];
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: GridView.builder(
+                                shrinkWrap: true,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  // childAspectRatio: aspectRatio,
+                                  mainAxisSpacing: 2,
+                                  crossAxisSpacing: 2,
+                                  crossAxisCount: 52,
+                                ),
+                                itemCount: 4100,
+                                itemBuilder: (context, index) {
+                                  final item = weeks[index];
 
-                                return buildWeeks(item);
-                              }),
+                                  return buildWeeks(item);
+                                }),
+                          ),
                         ),
                       ]),
                     );
@@ -124,8 +133,34 @@ class _myHomePageState extends State<HomeScreen> {
   }
 
   Widget buildWeeks(int number) {
+    if (number > difference) {
+      return Container(color: Color.fromARGB(179, 214, 211, 211));
+    } else if (number < 286) {
+      return Container(
+        color: Colors.lightBlue,
+      );
+    } else if (number < 598) {
+      return Container(
+        color: Colors.teal,
+      );
+    } else if (number < 936) {
+      return Container(
+        color: Colors.yellow,
+      );
+    } else if (number < 1144) {
+      return Container(
+        color: Colors.orangeAccent,
+      );
+    } else if (number < 3224) {
+      return Container(
+        color: Colors.redAccent,
+      );
+    }
+
     return Container(
-      color: Colors.orange,
+      color: number > difference
+          ? Color.fromARGB(179, 214, 211, 211)
+          : Colors.orange,
     );
   }
 
