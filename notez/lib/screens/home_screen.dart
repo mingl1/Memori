@@ -6,7 +6,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:notez/components/user.dart';
 import 'package:notez/constants.dart' as constants;
 import 'package:notez/screens/profile.dart';
@@ -55,7 +54,7 @@ class _myHomePageState extends State<HomeScreen> {
                   lived = (((totalWeeks-difference)/totalWeeks)*100);
 
                 return Column(children: [Row(children: [SizedBox(width: 10),Text(
-                  'Life Progress: ${(100-lived).toStringAsFixed(1)}%',style: GoogleFonts.openSans(),
+                  'Life Progress: ${(100-lived).toStringAsFixed(1)}%',style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.bold,),
                 )])]);}
                 else{
                   return CircularProgressIndicator();
