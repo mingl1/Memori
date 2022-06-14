@@ -25,6 +25,8 @@ class _myHomePageState extends State<HomeScreen> {
   final user = FirebaseAuth.instance.currentUser!;
   late AuthUser userr;
 
+  final weeks = List.generate(7800, (index) => index);
+
   //static late final uzer;
 
   bool isDarkMode() => MyApp.themeNotifier.value == ThemeMode.dark;
@@ -34,6 +36,7 @@ class _myHomePageState extends State<HomeScreen> {
     double difference;
     int totalWeeks;
     double lived;
+    double aspectRatio;
     //DateTime.parse(userr.bd).add(Duration(days: userr.life*365));
 
     return Scaffold(
@@ -60,24 +63,51 @@ class _myHomePageState extends State<HomeScreen> {
                             .inDays) /
                         7;
                     lived = (((totalWeeks - difference) / totalWeeks) * 100);
+                    aspectRatio = 52 / totalWeeks;
 
                     return Column(children: [
                       Row(children: [
                         SizedBox(width: 10),
                         Text(
                           'Life Progress: ${(100 - lived).toStringAsFixed(1)}%',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline4!
-                              .copyWith(
-                                fontWeight: FontWeight.bold,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.headline4!.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                         )
                       ]),
-                      Row(
-                        children: [SizedBox(width: 10),
-                          RichText(text: TextSpan(text: '${difference.toInt()}', style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold), children: [TextSpan(text: ' weeks spent | ${(totalWeeks-difference).toInt()} weeks left')]),),
-                        ],
+                      Expanded(
+                        child: Row(children: [
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: RichText(
+                              text: TextSpan(
+                                  text: '${difference.toInt()}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline5!
+                                      .copyWith(fontWeight: FontWeight.bold),
+                                  children: [
+                                    TextSpan(
+                                        text:
+                                            ' weeks spent | ${(totalWeeks - difference).toInt()} weeks left')
+                                  ]),
+                            ),
+                          )
+                        ]),
+                      ),
+                      Expanded(
+                        child: GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    childAspectRatio: aspectRatio,
+                                    crossAxisCount: 52),
+                            itemCount: totalWeeks,
+                            itemBuilder: (context, index) {
+                              final item = weeks[index];
+
+                              return buildWeeks(item);
+                            }),
                       )
                     ]);
                   } else {
@@ -89,6 +119,14 @@ class _myHomePageState extends State<HomeScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildWeeks(int number) {
+    return Container(
+      color: Colors.orange,
+      height: 1,
+      width: 1,
     );
   }
 
