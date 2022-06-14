@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:notez/main.dart';
 
 // class welcome extends StatelessWidget {
 
@@ -358,6 +359,7 @@ class _signupWidgetState extends State<signUpWidget> {
   }
   
   Future  signUp() async{
+    showDialog(context: context, barrierDismissible: false, builder: (context) => Center(child: CircularProgressIndicator(),));
     try {
    FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text.trim(), password: passwordController.text.trim()).then((value) {
      DocumentReference<Map<String, dynamic>> users = FirebaseFirestore.instance.collection('UsersData').doc(FirebaseAuth.instance.currentUser!.uid);
@@ -370,5 +372,6 @@ class _signupWidgetState extends State<signUpWidget> {
 } on FirebaseAuthException catch (e) {
   print(e);
 }
+navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }
