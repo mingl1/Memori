@@ -1,23 +1,23 @@
-//import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:notez/main.dart';
+import 'package:notez/components/user.dart';
 import 'package:notez/screens/home_screen.dart';
+import 'package:notez/screens/setupPage.dart';
 import 'package:notez/utils/customePageRoute.dart';
 
-class setupPage extends StatefulWidget {
-  const setupPage({Key? key}) : super(key: key);
+class profile extends StatefulWidget {
+  final AuthUser uzer;
+  profile( {Key? key, required this.uzer}) : super(key: key);
 
   @override
-  _setupPageState createState() => _setupPageState();
+  State<profile> createState() => _profileState();
 }
 
-class _setupPageState extends State<setupPage> {
+class _profileState extends State<profile> {
   final user = FirebaseAuth.instance.currentUser!;
   bool bd = false;
   final items =
@@ -28,8 +28,14 @@ class _setupPageState extends State<setupPage> {
   int index = 70;
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    //final items = items1.map((e) => Center(child: Text(e, ))).toList();
+    index = widget.uzer.life-10;
+    selectedDate = DateTime.parse(widget.uzer.bd);
+    return profilePage();
+  }
+  
+  Widget profilePage() {
+        final height = MediaQuery.of(context).size.height;
+
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -54,6 +60,74 @@ class _setupPageState extends State<setupPage> {
                       color: Colors.white),
                 )),
               ),
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20)
+                      .copyWith(bottom: 10)
+                      .copyWith(top: 30)
+                      .copyWith(right: 20),
+                  child: Container(
+                    height: height / 13,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                        color: Colors.grey.shade400,
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Your Name",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16.5),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 55,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Container(
+                              width: 130,
+
+                              decoration: BoxDecoration(
+                                  color: Colors.grey.shade300,
+                                  shape: BoxShape.rectangle,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8))),
+                              child: Center(
+                                  child: RichText(
+                                text: TextSpan(
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      //showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1900), lastDate: DateTime.now(),);
+                                      //showCupertinoModalPopup(context: context, builder: builder)
+                                      showDatePicker();
+                                    },
+                                  text: widget.uzer.name,
+                                  //yMMMMEd().format(selectedDate),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15.5,
+                                      color: Colors.black),
+                                ),
+                              )),
+                              // child: CupertinoDatePicker(
+                              //   onDateTimeChanged: (value) {
+                              //     if (value != null && value != selectedDate)
+                              //       setState(() {
+                              //         selectedDate = value;
+                              //       });
+                              //   },
+                              //   mode: CupertinoDatePickerMode.date,
+                              //   initialDateTime: DateTime.now(),
+                              //   maximumYear: DateTime.now().year,
+                              // )
+                            ),
+                          )
+                        ]),
+                  )),
               Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20)
                       .copyWith(bottom: 10)
@@ -177,7 +251,7 @@ class _setupPageState extends State<setupPage> {
                 ),
               ),
               SizedBox(
-                height: 130,
+                height: 50,
               ),
               GestureDetector(
                 onTap: () {
@@ -270,3 +344,5 @@ class _setupPageState extends State<setupPage> {
 
   }
 }
+
+

@@ -42,6 +42,7 @@ class landingPage extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: 'Memori',
             theme: const NeumorphicThemeData(
+              accentColor: Colors.green,
               baseColor: Colors.white,
               lightSource: LightSource.left,
               intensity: 0.7,
@@ -86,8 +87,8 @@ class MyApp extends StatelessWidget {
             // Remove the debug banner
             debugShowCheckedModeBanner: false,
             title: 'Memori',
-            theme: const NeumorphicThemeData(
-              baseColor: Colors.white,
+            theme:  NeumorphicThemeData(
+              baseColor: Colors.grey.shade500,
               lightSource: LightSource.left,
               intensity: 0.7,
             ),

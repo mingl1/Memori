@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:notez/screens/signInPage.dart';
 import 'package:notez/screens/signUpPage.dart';
 
@@ -36,7 +37,7 @@ class _AuthPageState extends State<AuthPage> {
   bool isLogin = true;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return NeumorphicApp(
         home: isLogin
             ? signUpWidget(onClickedSignIn: toggle)
             : signInWidget(onClickedSignIn: toggle));
