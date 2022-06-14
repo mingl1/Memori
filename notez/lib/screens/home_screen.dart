@@ -65,51 +65,52 @@ class _myHomePageState extends State<HomeScreen> {
                     lived = (((totalWeeks - difference) / totalWeeks) * 100);
                     aspectRatio = 52 / totalWeeks;
 
-                    return Column(children: [
-                      Row(children: [
-                        SizedBox(width: 10),
-                        Text(
-                          'Life Progress: ${(100 - lived).toStringAsFixed(1)}%',
-                          style:
-                              Theme.of(context).textTheme.headline4!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                        )
-                      ]),
-                      Expanded(
-                        child: Row(children: [
+                    return Expanded(
+                      child: Column(children: [
+                        Row(children: [
                           SizedBox(width: 10),
-                          Expanded(
-                            child: RichText(
-                              text: TextSpan(
-                                  text: '${difference.toInt()}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline5!
-                                      .copyWith(fontWeight: FontWeight.bold),
-                                  children: [
-                                    TextSpan(
-                                        text:
-                                            ' weeks spent | ${(totalWeeks - difference).toInt()} weeks left')
-                                  ]),
-                            ),
+                          Text(
+                            'Life Progress: ${(100 - lived).toStringAsFixed(1)}%',
+                            style:
+                                Theme.of(context).textTheme.headline4!.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                           )
                         ]),
-                      ),
-                      Expanded(
-                        child: GridView.builder(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    childAspectRatio: aspectRatio,
-                                    crossAxisCount: 52),
-                            itemCount: totalWeeks,
-                            itemBuilder: (context, index) {
-                              final item = weeks[index];
+                        Row(children: [
+                          SizedBox(width: 10),
+                          RichText(
+                            text: TextSpan(
+                                text: '${difference.toInt()}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline5!
+                                    .copyWith(fontWeight: FontWeight.bold),
+                                children: [
+                                  TextSpan(
+                                      text:
+                                          ' weeks spent | ${(totalWeeks - difference).toInt()} weeks left')
+                                ]),
+                          ),
+                        ]),
+                        Expanded(
+                          child: GridView.builder(
+                            shrinkWrap: true,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      childAspectRatio: aspectRatio,
+                                      mainAxisSpacing: 5,
+                                      crossAxisSpacing: 1,
+                                      crossAxisCount: 52,),
+                              itemCount: totalWeeks,
+                              itemBuilder: (context, index) {
+                                final item = weeks[index];
 
-                              return buildWeeks(item);
-                            }),
-                      )
-                    ]);
+                                return buildWeeks(item);
+                              }),
+                        ),
+                      ]),
+                    );
                   } else {
                     return CircularProgressIndicator();
                   }
@@ -125,8 +126,6 @@ class _myHomePageState extends State<HomeScreen> {
   Widget buildWeeks(int number) {
     return Container(
       color: Colors.orange,
-      height: 1,
-      width: 1,
     );
   }
 
