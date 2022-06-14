@@ -360,8 +360,9 @@ class _signupWidgetState extends State<signUpWidget> {
   Future  signUp() async{
     try {
    FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text.trim(), password: passwordController.text.trim()).then((value) {
-     CollectionReference users = FirebaseFirestore.instance.collection('UsersData');
-     users.add({'name': nameController.text.trim(), 'gender': maleSelected ? 'male' : 'female'});
+     DocumentReference<Map<String, dynamic>> users = FirebaseFirestore.instance.collection('UsersData').doc(FirebaseAuth.instance.currentUser!.uid);
+     users.set({'name': nameController.text.trim(), 'gender': maleSelected ? 'male' : 'female', 'birthdate': '','life': 80});
+     print(FirebaseAuth.instance.currentUser!.uid);
     //  FirebaseFirestore.instance.collection('UsersData').doc(value.user!.uid).set({"test": nameController.text.trim()});
     // FirebaseFirestore.instance.collection('UsersData').doc(value.user!.uid).set({"name": nameController.text.trim()});
     //  FirebaseFirestore.instance.collection('UsersData').doc(value.user!.uid).set({"gender":maleSelected ? 'male' : 'female' });

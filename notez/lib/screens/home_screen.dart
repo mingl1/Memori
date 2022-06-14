@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:notez/components/user.dart';
 import 'package:notez/constants.dart' as constants;
 import '../main.dart';
 
@@ -76,10 +78,50 @@ class _myHomePageState extends State<HomeScreen> {
                 navigatorKey.currentState!.popUntil((route) => route.isFirst);
               },
             ),
+              ElevatedButton(
+              child: const Text('back'),
+              onPressed: () {
+           Navigator.pop(context);
+              },
+            ),
+            profile(),
           ],
         ),
       ),
     );
+  }
+
+  Future<AuthUser?> readUser() async {
+    final docUser =
+        FirebaseFirestore.instance.collection('UsersData').doc(user.uid);
+    final snapshot = await docUser.get();
+
+    if (snapshot.exists) {
+      try {
+        // if (AuthUser.fromJson(snapshot.data()!).bd.isNotEmpty){
+        //   setState(() {
+        //   });
+        // };
+        return AuthUser.fromJson(snapshot.data()!);
+      } on Exception catch (e) {
+        print(e);
+      }
+    }
+  }
+  
+  FutureBuilder<AuthUser?> profile() {
+    return FutureBuilder(future: readUser(),builder: ((context, snapshot) {
+      if (snapshot.hasData){
+        final uzer = snapshot.data;
+
+        return uzer == null ? Center(child: Text('nouser')) :buildUser(uzer);
+      }
+      else { return Text('waiting');}
+    }));
+  }
+  
+  Widget buildUser(AuthUser uzer) {
+    return Text(uzer.bd);
   }
 }
 

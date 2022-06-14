@@ -8,7 +8,7 @@ import 'package:notez/screens/signUpPage.dart';
 //   Authentication(this._firebaseAuth);
 
 //   Stream<User?> authStateChanges (){return  _firebaseAuth.authStateChanges();}
-  
+
 //   Future<String> signIn({String email, String password}) async{
 //  try {
 //   final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -35,9 +35,14 @@ class AuthPage extends StatefulWidget {
 class _AuthPageState extends State<AuthPage> {
   bool isLogin = true;
   @override
-  Widget build(BuildContext context) { return MaterialApp(home:isLogin ? signUpWidget(onClickedSignIn: toggle) : signInWidget(onClickedSignIn: toggle));}
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: isLogin
+            ? signUpWidget(onClickedSignIn: toggle)
+            : signInWidget(onClickedSignIn: toggle));
+  }
 
   void toggle() => setState(() {
-    isLogin = !isLogin;
-  });
+        isLogin = !isLogin;
+      });
 }
