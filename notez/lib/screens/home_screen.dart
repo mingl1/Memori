@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:notez/components/user.dart';
 import 'package:notez/constants.dart' as constants;
 import 'package:notez/screens/profile.dart';
@@ -21,37 +24,45 @@ class HomeScreen extends StatefulWidget {
 class _myHomePageState extends State<HomeScreen> {
   bool status = MyApp.themeNotifier.value == ThemeMode.dark;
   final user = FirebaseAuth.instance.currentUser!;
+  late AuthUser userr;
+
   //static late final uzer;
 
   bool isDarkMode() => MyApp.themeNotifier.value == ThemeMode.dark;
   @override
   Widget build(BuildContext context) {
+    readUser();
+   double difference;
+     int totalWeeks;
+     double lived;
+    //DateTime.parse(userr.bd).add(Duration(days: userr.life*365)); 
+
     return Scaffold(
       body: Center(
         child: Column(
           children: [
             Row(
-              children: [profileName(), dayNight()],
+              children: [profileName(), dayNight(), SizedBox(width: 110,),
+              out()],
+              
             ),
-          
-            ElevatedButton(
-              child: const Text('Go to Other Screen'),
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (context) => Center(
-                          child: CircularProgressIndicator(),
-                        ));
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => const OtherScreen()));
-                FirebaseAuth.instance.signOut();
-                dispose();
-                navigatorKey.currentState!.popUntil((route) => route.isFirst);
-              },
-            ),
+            FutureBuilder(
+              future: readUser(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData){
+                  totalWeeks= 52 * userr.life;
+                  difference = (DateTime.now().difference(DateTime.parse(userr.bd)).inDays)/7;
+                  lived = (((totalWeeks-difference)/totalWeeks)*100);
+
+                return Column(children: [Row(children: [SizedBox(width: 10),Text(
+                  'Life Progress: ${(100-lived).toStringAsFixed(1)}%',style: GoogleFonts.openSans(),
+                )])]);}
+                else{
+                  return CircularProgressIndicator();
+                }
+              }
+            )
+           
             //profile(),
           ],
         ),
@@ -70,6 +81,7 @@ class _myHomePageState extends State<HomeScreen> {
         //   setState(() {
         //   });
         // };
+        userr = AuthUser.fromJson(snapshot.data()!);
         return AuthUser.fromJson(snapshot.data()!);
       } on Exception catch (e) {
         print(e);
@@ -112,6 +124,45 @@ class _myHomePageState extends State<HomeScreen> {
       )),
     );
   }
+
+  IconButton out(){
+    return IconButton(icon: Icon(Icons.exit_to_app),iconSize: 45,color: Colors.white, onPressed: () {
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) => Center(
+                          child: CircularProgressIndicator(),
+                        ));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => const OtherScreen()));
+                FirebaseAuth.instance.signOut();
+                dispose();
+                navigatorKey.currentState!.popUntil((route) => route.isFirst);
+              },);
+  }
+
+  ElevatedButton signOut() {
+    return  ElevatedButton(
+              child: const Text('Sign Out'),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) => Center(
+                          child: CircularProgressIndicator(),
+                        ));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => const OtherScreen()));
+                FirebaseAuth.instance.signOut();
+                dispose();
+                navigatorKey.currentState!.popUntil((route) => route.isFirst);
+              },
+            );
+  }
   NeumorphicSwitch dayNight () {
     return   NeumorphicSwitch(
               curve: Neumorphic.DEFAULT_CURVE,
@@ -152,6 +203,8 @@ class _myHomePageState extends State<HomeScreen> {
               ),
             );
   }
+
+
 
 }
 

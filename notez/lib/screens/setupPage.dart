@@ -83,7 +83,7 @@ class _setupPageState extends State<setupPage> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Container(
-                              width: 130,
+                              width: 125,
 
                               decoration: BoxDecoration(
                                   color: Colors.grey.shade300,
@@ -149,7 +149,7 @@ class _setupPageState extends State<setupPage> {
                     ),
                     Center(
                       child: SizedBox(
-                        height: height / 3 - 35,
+                        height: height / 3 - 36,
                         child: CupertinoPicker(
                           scrollController:
                               FixedExtentScrollController(initialItem: index),
@@ -262,7 +262,7 @@ class _setupPageState extends State<setupPage> {
       FirebaseFirestore.instance
           .collection('UsersData')
           .doc(user.uid)
-          .update({'birthdate': selectedDate.toString(), 'life': index + 10});
+          .update({'birthdate': selectedDate.toString(), 'life': index });
     } on FirebaseAuthException catch (e) {
       print(e);
     }

@@ -28,14 +28,14 @@ class _profileState extends State<profile> {
   int index = 70;
   @override
   Widget build(BuildContext context) {
-    index = widget.uzer.life-10;
-    selectedDate = DateTime.parse(widget.uzer.bd);
-    return profilePage();
+    
+    return setupPage();
   }
   
   Widget profilePage() {
-        final height = MediaQuery.of(context).size.height;
-
+    final height = MediaQuery.of(context).size.height;
+    index = widget.uzer.life-10;
+    selectedDate = DateTime.parse(widget.uzer.bd);
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -84,7 +84,7 @@ class _profileState extends State<profile> {
                             ),
                           ),
                           SizedBox(
-                            width: 55,
+                            width: 40,
                           ),
                           Padding(
                             padding: const EdgeInsets.all(5.0),
@@ -103,7 +103,7 @@ class _profileState extends State<profile> {
                                     ..onTap = () {
                                       //showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1900), lastDate: DateTime.now(),);
                                       //showCupertinoModalPopup(context: context, builder: builder)
-                                      showDatePicker();
+                                     // showDatePicker();
                                     },
                                   text: widget.uzer.name,
                                   //yMMMMEd().format(selectedDate),
@@ -157,7 +157,7 @@ class _profileState extends State<profile> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Container(
-                              width: 130,
+                              width: 125,
 
                               decoration: BoxDecoration(
                                   color: Colors.grey.shade300,
@@ -223,7 +223,7 @@ class _profileState extends State<profile> {
                     ),
                     Center(
                       child: SizedBox(
-                        height: height / 3 - 35,
+                        height: height / 3 - 36,
                         child: CupertinoPicker(
                           scrollController:
                               FixedExtentScrollController(initialItem: index),
@@ -318,7 +318,7 @@ class _profileState extends State<profile> {
             child: CupertinoDatePicker(
               mode: CupertinoDatePickerMode.date,
               onDateTimeChanged: (value) {
-                if (value != null && value != selectedDate)
+                if (value != null)
                   setState(() {
                     selectedDate = value;
                   });
@@ -336,7 +336,7 @@ class _profileState extends State<profile> {
       FirebaseFirestore.instance
           .collection('UsersData')
           .doc(user.uid)
-          .update({'birthdate': selectedDate.toString(), 'life': index + 10});
+          .update({'birthdate': selectedDate.toString(), 'life': (index + 10)});
     } on FirebaseAuthException catch (e) {
       print(e);
     }
