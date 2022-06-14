@@ -1,0 +1,2 @@
+memori 
+in notez
