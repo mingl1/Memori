@@ -1,2 +1,1 @@
-memori in notez;
-demonstration(https://youtu.be/2cMSIFvvtnU)
+memori project in notez;
